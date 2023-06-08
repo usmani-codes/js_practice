@@ -1,12 +1,12 @@
 const products = [
-    { id: 1, name: 'Product 1', quantity: 5, price: 10 },
-    { id: 2, name: 'Product 2', quantity: 2, price: 20 },
-    { id: 3, name: 'Product 3', quantity: 8, price: 30 },
-    { id: 4, name: 'Product 4', quantity: 3, price: 40 },
+    { id: 1, name: 'Product 1', quantity: 5, price: 20 },
+    { id: 2, name: 'Product 2', quantity: 1, price: 20 },
+    { id: 3, name: 'Product 3', quantity: 8, price: 35 },
+    { id: 4, name: 'Product 4', quantity: 1, price: 40 },
     { id: 5, name: 'Product 5', quantity: 6, price: 50 },
-    { id: 6, name: 'Product 6', quantity: 4, price: 60 },
+    { id: 6, name: 'Product 6', quantity: 4, price: 66 },
     { id: 7, name: 'Product 7', quantity: 7, price: 70 },
-    { id: 8, name: 'Product 8', quantity: 1, price: 80 }
+    { id: 8, name: 'Product 8', quantity: 10, price: 80 }
 ];
 
 const users = [
@@ -16,8 +16,8 @@ const users = [
     { id: 4, name: 'User 4', age: 28, score: 85 },
     { id: 5, name: 'User 5', age: 32, score: 95 },
     { id: 6, name: 'User 6', age: 27, score: 70 },
-    { id: 7, name: 'User 7', age: 33, score: 88 },
-    { id: 8, name: 'User 8', age: 29, score: 92 }
+    { id: 7, name: 'Changed', age: 33, score: 108 },
+    { id: 8, name: 'Junaid', age: 29, score: 92 }
 ];
 
 const countries = ['USA', 'Canada', 'Australia', 'Germany', 'Japan', 'France', 'Spain', 'Italy'];
@@ -36,14 +36,14 @@ const blogPosts = [
 const numbers = [10, 20, -5, 30, -15, 25, 5, -10];
 
 const transactions = [
-    { id: 1, amount: 100, type: 'debit' },
-    { id: 2, amount: 50, type: 'credit' },
-    { id: 3, amount: 200, type: 'credit' },
-    { id: 4, amount: 75, type: 'debit' },
-    { id: 5, amount: 150, type: 'debit' },
-    { id: 6, amount: 300, type: 'credit' },
-    { id: 7, amount: 125, type: 'credit' },
-    { id: 8, amount: 250, type: 'debit' }
+    { id: 1,name:'user 1', amount: 100, type: 'debit' },
+    { id: 2,name:'user 2', amount: 50, type: 'credit' },
+    { id: 3,name:'user 3', amount: 200, type: 'credit' },
+    { id: 4,name:'user 4', amount: 75, type: 'debit' },
+    { id: 5,name:'user 5', amount: 150, type: 'debit' },
+    { id: 6,name:'user 6', amount: 300, type: 'credit' },
+    { id: 7,name:'user 7', amount: 125, type: 'credit' },
+    { id: 8,name:'user 8', amount: 250, type: 'debit' }
 ];
 
 
@@ -100,13 +100,46 @@ console.log(aveScore,aboveAveScore)
 const totalQuantity = products.filter(x=>x.price<50).reduce((x,y)=>x+ y.quantity,0)
 console.log(totalQuantity)
 
-// Find the product(s) with a quantity greater than the average quantity.
-//     Return the name of the user who has made the most transactions (transactions.length).
-//     Find the product(s) with the highest total value (quantity * price).
-//     Check if any user has both a score greater than 90 and a name that starts with the letter "J".
-//     Return the name(s) of the user(s) who have made the fewest transactions.
-//     Calculate the sum of all the prices for products that have a quantity of 1.
-// Find the product(s) with a price that is a multiple of 10.
-// Return the name(s) of the user(s) who have the highest total spent per transaction (totalSpent / transactions.length).
-//     Calculate the sum of the quantities for all products with a price above the average price.
-//     These questions should provide a challenge and test your understanding of the functions and data manipulation. Good luck! Let me know if you need any further assistance.
+//11. Find the product(s) with a quantity greater than the average quantity.
+const productsAve = Math.floor(products.map(x=>x.quantity).reduce((x,y)=>x+y/products.length,0))
+const aboveAverage = products.filter(x=>x.quantity>productsAve)
+console.log('11: ',productsAve,aboveAverage)
+
+//12. Return the obj of the user who has made the most transactions (credit).
+const mostCredit = transactions.sort((a,b)=>b.amount-a.amount).filter(x=>x.type ==='credit')[0]
+console.log(mostCredit)
+
+//13. Find the product(s) with the highest total value (quantity * price).
+const highestTotal =  products.map(x=>{
+    const product = x.quantity * x.price
+    return {...x,product}
+}).sort((a,b)=>b.product - a.product)[0]
+console.log(highestTotal)
+
+//14. Check if any user has both a score greater than 90 and a name that starts with the letter "J".
+const isUserAbove_90 = users.filter(x=>x.score>90 && x.name.startsWith('J'))
+console.log(isUserAbove_90)
+
+//15. Return the name(s) of the user(s) who have made the fewest transactions. : don't mutate the array
+const lowestAmount = Math.min(...transactions.map(x=>x.amount))
+const lowestCredit = transactions.filter(x=>x.type ==='credit' && x.amount === lowestAmount)
+console.log(lowestCredit)
+
+//16. Calculate the sum of all the prices for products that have a quantity of 1.
+const sum = products.filter(x=>x.quantity === 1).reduce((p,n)=>p*n.price,1)
+console.log(sum)
+
+//17. Find the product(s) with a price that is a multiple of 10.
+const priceMultiple_10 = products.filter(x=>x.price %10 ===0)
+console.log('17',priceMultiple_10)
+
+//18. Return the name(s) of the user(s) who have the highest total spent: debit
+const highestDebit = Math.max(...transactions.filter(x=>x.type === 'debit').map(x=>x.amount))
+const userWithHighestDebit = transactions.filter(x=>x.amount === highestDebit).map(x=>x.name)
+console.log('18',userWithHighestDebit)
+
+//19. Calculate the sum of the quantities for all products with a price above the average price.
+const aveProductsPrice = Math.floor(products.map(x=>x.price).reduce((p,x)=>p+x/products.length,0))
+const aboveAverageProducts = products.filter(x=>x.price>aveProductsPrice).reduce((p,n)=>p+n.quantity,0)
+console.log(aboveAverageProducts)
+

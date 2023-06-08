@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "dev": "nodemon today.js"
+    "dev": "nodemon 20_more_Questions_on_arrays.js"
   },
   "keywords": [],
   "author": "",
