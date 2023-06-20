@@ -55,8 +55,51 @@ const sortMe = (arr, prop) => {
 const sorted = sortMe([{ name: 'imran' }, { name: 'abdullah' }], 'name')
 console.log(sorted)
 // 10. Create a function that generates a random alphanumeric string of a given length.
+const randomString = (len) => {
+  const alphanumericChars =
+    'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789'
+  let result = ''
+
+  for (let i = 0; i <= len; i++) {
+    const randomIndex = Math.floor(Math.random() * alphanumericChars.length)
+    result += alphanumericChars[randomIndex]
+  }
+  console.log(result)
+}
+randomString(30)
+
 // 11. Implement a function that checks if a given number is a prime number.
+const isPrime = (number) => {
+  if (number <= 1) return `No: ${number} is not a prime number`
+  for (let i = 2; i < Math.sqrt(number); i++) {
+    if (number % i === 0) return `No: ${number} is not a prime number`
+  }
+  return `yes: ${number} is a prime number`
+}
+
+console.log(isPrime(5))
 // 12. Write a function to find the most frequent element in an array.
+const mostFrequent = (arr) => {
+  let frequent = {}
+
+  arr.forEach((x) => {
+    frequent[x] = (frequent[x] || 0) + 1
+  })
+
+  let value = 0
+  let mostFrequent = {}
+
+  for (const key in frequent) {
+    if (frequent[key] > value) {
+      value = frequent[key]
+      mostFrequent = key
+    }
+  }
+
+  return `most Frequent is: ${mostFrequent}`
+}
+
+console.log(mostFrequent(['hello', 'hello', 'gee', 'one']))
 // 13. Create a function that converts a number to its corresponding Roman numeral.
 // 14. Implement a function that removes falsy values (false, null, 0, "", undefined, and NaN) from an array.
 // 15. Write a function that returns the sum of all numbers in an array.
