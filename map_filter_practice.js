@@ -53,7 +53,7 @@ const totalAge = students
 // console.log(totalAge)
 
 //Question 12: Filter out the students whose names contain the letter 'e'.
-const lastE = students.filter((s) => s.name.endsWith('e'))
+const lastE = students.filter((s) => s.name.includes('e'))
 // console.log(lastE)
 
 // Question 13:Extract an array of student grades.

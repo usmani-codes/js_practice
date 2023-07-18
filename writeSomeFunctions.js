@@ -132,19 +132,64 @@ const convertToRoman = (num) => {
 
 console.log(convertToRoman(2023))
 
-
 // 14. Implement a function that removes falsy values (false, null, 0, "", undefined, and NaN) from an array.
-const removeFalsyValues = (arr) => arr.filter(Boolean);
+const removeFalsyValues = (arr) => arr.filter(Boolean)
 
-const array = [false, null, 0, "", undefined, NaN, "Hello", 42];
-const filteredArray = removeFalsyValues(array);
+const array = [false, null, 0, '', undefined, NaN, 'Hello', 42]
+const filteredArray = removeFalsyValues(array)
 
-console.log(filteredArray);
-
+console.log(filteredArray)
 
 // 15. Write a function that returns the sum of all numbers in an array.
+const numArray = [5, 6, 0, 7, 8, 90, 8, 99, 9, 9]
+const sumofAllItems = numArray.reduce((prev, next) => prev + next, 0)
+console.log(sumofAllItems, 'sum of all')
+
 // 16. Create a function that finds the longest word in a sentence.
+const sentence = 'the longest word'
+
+const findTheLongestWord = (sentence) => {
+  let longestWord = sentence.split(' ')[0]
+
+  console.log(sentence.split(' ')[0])
+  sentence.split(' ').map((word) => {
+    if (word.length > longestWord.length) {
+      longestWord = word
+    }
+  })
+  return longestWord
+
+  // const arr = sentence.split(' ')
+  // let longest = arr[0]
+
+  // arr.map((word) => {
+  //   if (word.length > longest.length) {
+  //     longest = word
+  //   }
+  // })
+
+  // return longest
+}
+
+console.log(findTheLongestWord(sentence))
 // 17. Implement a function that checks if two strings are anagrams.
 // 18. Write a function that reverses the order of words in a sentence.
+const reverseOrder = (sen) => sen.split(' ').reverse().join(' ')
+console.log(reverseOrder(sentence))
 // 19. Create a function that generates a random password with a specified length and complexity.
+const generatePass = (len) => {
+  const str = 'hello world, you may write a to z and from to 0 to 9 and 9 to 0'
+  let pass = ''
+  for (let i = 0; i < len; i++) {
+    const index = Math.floor(Math.random() * str.length)
+    if (str[index] == ' ') {
+      pass += 'E'
+      continue
+    }
+    pass += str[index]
+  }
+  return pass
+}
+const myPass = generatePass(8)
+console.log(myPass)
 // 20. Implement a function that finds the intersection of two arrays (common elements).
